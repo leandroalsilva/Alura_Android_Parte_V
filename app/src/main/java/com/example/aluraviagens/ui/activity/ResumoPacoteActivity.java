@@ -2,6 +2,7 @@ package com.example.aluraviagens.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
@@ -42,6 +43,9 @@ public class ResumoPacoteActivity extends AppCompatActivity {
         mostraPreco(pacoteSaoPaulo);
 
         mostraData(pacoteSaoPaulo);
+
+        Intent intent = new Intent(this, PagamentoActivity.class);
+        startActivity(intent);
     }
 
     private void mostraData(Pacote pacote) {
