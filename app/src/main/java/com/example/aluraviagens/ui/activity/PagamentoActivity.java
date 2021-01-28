@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.aluraviagens.R;
@@ -28,8 +30,14 @@ public class PagamentoActivity extends AppCompatActivity {
 
         mostraPreco(pacoteSaoPaulo);
 
-        Intent intent = new Intent(this, ResumoCompraActivity.class);
-        startActivity(intent);
+        Button botaoFinalizaCompra = findViewById(R.id.pagamento_botao_finalizar_compra);
+        botaoFinalizaCompra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PagamentoActivity.this, ResumoCompraActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void mostraPreco(Pacote pacote) {
