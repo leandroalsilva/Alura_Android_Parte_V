@@ -18,6 +18,8 @@ import com.example.aluraviagens.util.ResourcesUtil;
 
 import java.math.BigDecimal;
 
+import static com.example.aluraviagens.ui.activity.PacoteActivityConstantes.CHAVE_PACOTE;
+
 public class ResumoCompraActivity extends AppCompatActivity {
 
     public static final String TITULO_APPBAR = "Resumo da compra";
@@ -28,17 +30,23 @@ public class ResumoCompraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_resumo_compra);
         setTitle(TITULO_APPBAR);
 
+        carregaPacoteRecebido();
+    }
+
+    private void carregaPacoteRecebido() {
         Intent intent = getIntent();
-        if (intent.hasExtra("pacote")){
-            final Pacote pacote = (Pacote) intent.getSerializableExtra("pacote");
+        if (intent.hasExtra(CHAVE_PACOTE)) {
+            final Pacote pacote = (Pacote) intent.getSerializableExtra(CHAVE_PACOTE);
 
-            mostraLocal(pacote);
-            mostraImagem(pacote);
-            mostraData(pacote);
-            mostraPreco(pacote);
+            inicializaCampos(pacote);
         }
+    }
 
-
+    private void inicializaCampos(Pacote pacote) {
+        mostraLocal(pacote);
+        mostraImagem(pacote);
+        mostraData(pacote);
+        mostraPreco(pacote);
     }
 
     private void mostraPreco(Pacote pacote) {

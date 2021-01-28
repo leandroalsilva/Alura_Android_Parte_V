@@ -15,6 +15,8 @@ import com.example.aluraviagens.util.MoedaUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import static com.example.aluraviagens.ui.activity.PacoteActivityConstantes.CHAVE_PACOTE;
+
 public class PagamentoActivity extends AppCompatActivity {
 
     public static final String TITULO_APPBAR = "Pagamento";
@@ -26,22 +28,34 @@ public class PagamentoActivity extends AppCompatActivity {
 
         setTitle(TITULO_APPBAR);
 
+        carregaPacoteRecebido();
+    }
+
+    private void carregaPacoteRecebido() {
         Intent intent = getIntent();
-        if (intent.hasExtra("pacote")){
-            final Pacote pacote = (Pacote) intent.getSerializableExtra("pacote");
+        if (intent.hasExtra(CHAVE_PACOTE)) {
+            final Pacote pacote = (Pacote) intent.getSerializableExtra(CHAVE_PACOTE);
 
             mostraPreco(pacote);
 
-            Button botaoFinalizaCompra = findViewById(R.id.pagamento_botao_finalizar_compra);
-            botaoFinalizaCompra.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(PagamentoActivity.this, ResumoCompraActivity.class);
-                    intent.putExtra("pacote", pacote);
-                    startActivity(intent);
-                }
-            });
+            configuraBotao(pacote);
         }
+    }
+
+    private void configuraBotao(Pacote pacote) {
+        Button botaoFinalizaCompra = findViewById(R.id.pagamento_botao_finalizar_compra);
+        botaoFinalizaCompra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                vaiParaResumoCompra(pacote);
+            }
+        });
+    }
+
+    private void vaiParaResumoCompra(Pacote pacote) {
+        Intent intent = new Intent(PagamentoActivity.this, ResumoCompraActivity.class);
+        intent.putExtra(CHAVE_PACOTE, pacote);
+        startActivity(intent);
     }
 
     private void mostraPreco(Pacote pacote) {
